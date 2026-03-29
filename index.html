@@ -1,0 +1,206 @@
+[#assign totalSlides = (configuration.numberOfSlides!'4')?number /]
+[#assign variant = configuration.variant!'hero' /]
+[#assign theme = configuration.theme!'dark' /]
+[#assign paginationPosition = configuration.paginationPosition!'center' /]
+[#assign arrowsPosition = configuration.arrowsPosition!'inside' /]
+[#assign contentHorizontalPosition = configuration.contentHorizontalPosition!'left' /]
+[#assign contentVerticalPosition = configuration.contentVerticalPosition!'bottom' /]
+[#assign actionsAlign = configuration.actionsAlign!'left' /]
+[#assign navigationStyle = configuration.navigationStyle!'button' /]
+[#assign performanceMode = configuration.performanceMode!'off' /]
+
+[#assign showArrows = configuration.showArrows!true /]
+[#assign showPagination = configuration.showPagination!true /]
+[#assign showPlayButton = configuration.showPlayButton!true /]
+[#assign autoHidePlayButton = configuration.autoHidePlayButton!true /]
+
+[#assign showEyebrow = configuration.showEyebrow!true /]
+[#assign showTitle = configuration.showTitle!true /]
+[#assign showDescription = configuration.showDescription!true /]
+[#assign showPrimaryButton = configuration.showPrimaryButton!true /]
+[#assign showSecondaryButton = configuration.showSecondaryButton!true /]
+
+[#assign showImageGuideline = configuration.showImageGuideline!false /]
+[#assign imageGuidelineText = configuration.imageGuidelineText!'Recomendado: usar imagens otimizadas em JPG ou WebP, preferencialmente até 300 KB e proporção próxima de 1600x900.' /]
+
+<div
+	class="lxp-slider
+		lxp-slider--${variant}
+		lxp-slider--theme-${theme}
+		lxp-slider--pagination-${paginationPosition}
+		lxp-slider--arrows-${arrowsPosition}
+		lxp-slider--content-x-${contentHorizontalPosition}
+		lxp-slider--content-y-${contentVerticalPosition}
+		lxp-slider--actions-${actionsAlign}
+		lxp-slider--nav-${navigationStyle}
+		lxp-slider--performance-${performanceMode}
+		[#if !showArrows] lxp-slider--no-arrows[/#if]
+		[#if !showPagination] lxp-slider--no-pagination[/#if]
+		[#if !showPlayButton] lxp-slider--no-toggle[/#if]
+		[#if !showEyebrow] lxp-slider--no-eyebrow[/#if]
+		[#if !showTitle] lxp-slider--no-title[/#if]
+		[#if !showDescription] lxp-slider--no-description[/#if]
+		[#if !showPrimaryButton] lxp-slider--no-primary-button[/#if]
+		[#if !showSecondaryButton] lxp-slider--no-secondary-button[/#if]"
+	role="group"
+	aria-roledescription="carousel"
+	tabindex="0"
+	style="
+		--lxp-title-color: ${configuration.titleColor!'#ffffff'};
+		--lxp-description-color: ${configuration.descriptionColor!'rgba(255,255,255,0.82)'};
+		--lxp-content-bg: ${configuration.contentBackgroundColor!'transparent'};
+		--lxp-primary-btn-bg: ${configuration.primaryButtonBackgroundColor!'linear-gradient(135deg, #7c3aed, #06b6d4)'};
+		--lxp-primary-btn-color: ${configuration.primaryButtonTextColor!'#ffffff'};
+		--lxp-secondary-btn-bg: ${configuration.secondaryButtonBackgroundColor!'rgba(255,255,255,0.08)'};
+		--lxp-secondary-btn-color: ${configuration.secondaryButtonTextColor!'#ffffff'};
+		--lxp-nav-color-custom: ${configuration.navigationColor!'#ffffff'};
+		--lxp-nav-bg-custom: ${configuration.navigationBackgroundColor!'rgba(255,255,255,0.12)'};
+		--lxp-bullet-active-custom: ${configuration.paginationActiveColor!'#ffffff'};
+		--lxp-bullet-inactive-custom: ${configuration.paginationInactiveColor!'rgba(255,255,255,0.32)'};
+		--lxp-radius: ${configuration.borderRadius!'0px'};
+		--lxp-nav-size: ${configuration.navigationSize!'52px'};
+		--lxp-arrows-offset: ${configuration.arrowsOffset!'18px'};
+	">
+	<div class="lxp-slider__frame">
+		<div class="lxp-slider__viewport">
+			[#if showImageGuideline]
+				<div class="lxp-slider__guideline" role="note">
+					${imageGuidelineText}
+				</div>
+			[/#if]
+
+			<div
+				class="lxp-slider__track"
+				id="${fragmentEntryLinkNamespace}-carouselInner"
+				aria-live="polite"
+				aria-atomic="false"
+			>
+				[#list 0..totalSlides - 1 as i]
+					[#assign editableIndex = "${i + 1}" /]
+					[#if i lt 9]
+						[#assign editableIndex = "0${i + 1}" /]
+					[/#if]
+
+					<section
+						class="lxp-slide [#if i == 0]is-active[/#if]"
+						id="${fragmentEntryLinkNamespace}-slide-${i + 1}"
+						role="group"
+						aria-roledescription="slide"
+						aria-label="Slide ${i + 1} de ${totalSlides}"
+						aria-hidden="[#if i == 0]false[#else]true[/#if]"
+					>
+						<div class="lxp-slide__media">
+							<img
+								class="lxp-slide__image"
+								data-lfr-editable-id="${editableIndex}-image"
+								data-lfr-editable-type="image"
+								src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3e%3cdefs%3e%3clinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3e%3cstop offset='0%25' stop-color='%231e293b'/%3e%3cstop offset='100%25' stop-color='%233b82f6'/%3e%3c/linearGradient%3e%3c/defs%3e%3crect width='1600' height='900' fill='url(%23g)'/%3e%3ccircle cx='1280' cy='180' r='220' fill='rgba(255,255,255,0.12)'/%3e%3ccircle cx='260' cy='760' r='260' fill='rgba(255,255,255,0.10)'/%3e%3ctext x='80' y='140' fill='white' font-size='64' font-family='Arial, sans-serif' font-weight='700'%3eAdvanced Liferay Slider%3c/text%3e%3ctext x='80' y='220' fill='rgba(255,255,255,0.82)' font-size='30' font-family='Arial, sans-serif'%3eEditable image placeholder%3c/text%3e%3c/svg%3e"
+								alt=""
+							/>
+						</div>
+
+						<div class="lxp-slide__overlay"></div>
+
+						<div class="lxp-slide__content">
+							<div
+								class="lxp-slide__eyebrow"
+								data-lfr-editable-id="${editableIndex}-eyebrow"
+								data-lfr-editable-type="rich-text"
+							>
+								<p>Slide ${i + 1}</p>
+							</div>
+
+							<div
+								class="lxp-slide__title"
+								data-lfr-editable-id="${editableIndex}-title"
+								data-lfr-editable-type="rich-text"
+							>
+								<p>Título do Slide ${i + 1}</p>
+							</div>
+
+							<div
+								class="lxp-slide__description"
+								data-lfr-editable-id="${editableIndex}-description"
+								data-lfr-editable-type="rich-text"
+							>
+								<p>Descrição do slide ${i + 1}.</p>
+							</div>
+
+							<div class="lxp-slide__actions">
+								<a
+									class="lxp-slide__cta lxp-slide__cta--primary"
+									data-lfr-editable-id="${editableIndex}-primary-link"
+									data-lfr-editable-type="link"
+									href="#"
+								>
+									Ação principal
+								</a>
+
+								<a
+									class="lxp-slide__cta lxp-slide__cta--secondary"
+									data-lfr-editable-id="${editableIndex}-secondary-link"
+									data-lfr-editable-type="link"
+									href="#"
+								>
+									Ação secundária
+								</a>
+							</div>
+						</div>
+					</section>
+				[/#list]
+			</div>
+		</div>
+
+		<button
+			[#if !showArrows]hidden[/#if]
+			class="lxp-slider__nav lxp-slider__nav--prev"
+			type="button"
+			aria-controls="${fragmentEntryLinkNamespace}-carouselInner"
+			aria-label="Slide anterior"
+		>
+			<span aria-hidden="true">‹</span>
+		</button>
+
+		<button
+			[#if !showArrows]hidden[/#if]
+			class="lxp-slider__nav lxp-slider__nav--next"
+			type="button"
+			aria-controls="${fragmentEntryLinkNamespace}-carouselInner"
+			aria-label="Próximo slide"
+		>
+			<span aria-hidden="true">›</span>
+		</button>
+
+		<div class="lxp-slider__footer">
+			<ol
+				[#if !showPagination]hidden[/#if]
+				class="lxp-slider__pagination"
+				aria-label="Paginação do slider"
+			>
+				[#list 0..totalSlides - 1 as i]
+					<li class="lxp-slider__pagination-item">
+						<button
+							class="lxp-slider__bullet [#if i == 0]is-active[/#if]"
+							type="button"
+							aria-controls="${fragmentEntryLinkNamespace}-slide-${i + 1}"
+							aria-current="[#if i == 0]true[#else]false[/#if]"
+							aria-label="Ir para o slide ${i + 1}"
+						>
+							<span aria-hidden="true"></span>
+						</button>
+					</li>
+				[/#list]
+			</ol>
+
+			<button
+				[#if !showPlayButton]hidden[/#if]
+				class="lxp-slider__toggle [#if !autoHidePlayButton]lxp-slider__toggle--always-visible[/#if]"
+				type="button"
+				aria-label="Pausar rotação automática"
+			>
+				<span class="lxp-slider__toggle-play">▶</span>
+				<span class="lxp-slider__toggle-pause">❚❚</span>
+			</button>
+		</div>
+	</div>
+</div>

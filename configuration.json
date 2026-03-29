@@ -1,0 +1,372 @@
+{
+	"fieldSets": [
+		{
+			"label": "Slider Options",
+			"fields": [
+				{
+					"name": "numberOfSlides",
+					"label": "Number of Slides",
+					"type": "select",
+					"defaultValue": "4",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "1", "value": "1" },
+							{ "label": "2", "value": "2" },
+							{ "label": "3", "value": "3" },
+							{ "label": "4", "value": "4" },
+							{ "label": "5", "value": "5" },
+							{ "label": "6", "value": "6" },
+							{ "label": "7", "value": "7" },
+							{ "label": "8", "value": "8" }
+						]
+					}
+				},
+				{
+					"name": "variant",
+					"label": "Variant",
+					"type": "select",
+					"defaultValue": "hero",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Hero", "value": "hero" },
+							{ "label": "Cards", "value": "cards" },
+							{ "label": "Testimonials", "value": "testimonials" },
+							{ "label": "Minimal", "value": "minimal" },
+							{ "label": "Split", "value": "split" },
+							{ "label": "Banner", "value": "banner" }
+						]
+					}
+				},
+				{
+					"name": "theme",
+					"label": "Theme",
+					"type": "select",
+					"defaultValue": "dark",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Dark", "value": "dark" },
+							{ "label": "Light", "value": "light" }
+						]
+					}
+				}
+			]
+		},
+		{
+			"label": "Container",
+			"fields": [
+				{
+					"name": "borderRadius",
+					"label": "Border Radius",
+					"type": "text",
+					"defaultValue": "0px"
+				}
+			]
+		},
+		{
+			"label": "Content Layout",
+			"fields": [
+				{
+					"name": "contentHorizontalPosition",
+					"label": "Content Horizontal Position",
+					"type": "select",
+					"defaultValue": "left",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Left", "value": "left" },
+							{ "label": "Center", "value": "center" },
+							{ "label": "Right", "value": "right" }
+						]
+					}
+				},
+				{
+					"name": "contentVerticalPosition",
+					"label": "Content Vertical Position",
+					"type": "select",
+					"defaultValue": "bottom",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Top", "value": "top" },
+							{ "label": "Center", "value": "center" },
+							{ "label": "Bottom", "value": "bottom" }
+						]
+					}
+				},
+				{
+					"name": "actionsAlign",
+					"label": "Buttons Alignment",
+					"type": "select",
+					"defaultValue": "left",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Left", "value": "left" },
+							{ "label": "Center", "value": "center" },
+							{ "label": "Right", "value": "right" }
+						]
+					}
+				}
+			]
+		},
+		{
+			"label": "Content Visibility",
+			"fields": [
+				{
+					"name": "showEyebrow",
+					"label": "Show Eyebrow",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "showTitle",
+					"label": "Show Title",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "showDescription",
+					"label": "Show Description",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "showPrimaryButton",
+					"label": "Show Primary Button",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "showSecondaryButton",
+					"label": "Show Secondary Button",
+					"type": "checkbox",
+					"defaultValue": true
+				}
+			]
+		},
+		{
+			"label": "Navigation",
+			"fields": [
+				{
+					"name": "showArrows",
+					"label": "Show Arrows",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "showPagination",
+					"label": "Show Pagination",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "showPlayButton",
+					"label": "Show Play Button",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "autoHidePlayButton",
+					"label": "Auto Hide Play Button",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "paginationPosition",
+					"label": "Pagination Position",
+					"type": "select",
+					"defaultValue": "center",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Left", "value": "left" },
+							{ "label": "Center", "value": "center" },
+							{ "label": "Right", "value": "right" }
+						]
+					}
+				},
+				{
+					"name": "arrowsPosition",
+					"label": "Arrows Position",
+					"type": "select",
+					"defaultValue": "inside",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Inside", "value": "inside" },
+							{ "label": "Edge", "value": "edge" },
+							{ "label": "Outside", "value": "outside" }
+						]
+					}
+				},
+				{
+					"name": "arrowsOffset",
+					"label": "Arrows Offset",
+					"type": "text",
+					"defaultValue": "18px"
+				},
+				{
+					"name": "navigationSize",
+					"label": "Navigation Size",
+					"type": "text",
+					"defaultValue": "52px"
+				},
+				{
+					"name": "navigationStyle",
+					"label": "Navigation Style",
+					"type": "select",
+					"defaultValue": "button",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Button", "value": "button" },
+							{ "label": "Minimal", "value": "minimal" },
+							{ "label": "Ghost", "value": "ghost" }
+						]
+					}
+				}
+			]
+		},
+		{
+			"label": "Behavior",
+			"fields": [
+				{
+					"name": "autoplay",
+					"label": "Autoplay",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "autoplayDelay",
+					"label": "Autoplay Delay (ms)",
+					"type": "text",
+					"defaultValue": "5000"
+				},
+				{
+					"name": "pauseOnHover",
+					"label": "Pause On Hover",
+					"type": "checkbox",
+					"defaultValue": true
+				},
+				{
+					"name": "performanceMode",
+					"label": "Performance Mode",
+					"type": "select",
+					"defaultValue": "off",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Off", "value": "off" },
+							{ "label": "Balanced", "value": "balanced" },
+							{ "label": "Strict", "value": "strict" }
+						]
+					}
+				}
+			]
+		},
+		{
+			"label": "Image Guidance",
+			"fields": [
+				{
+					"name": "showImageGuideline",
+					"label": "Show Image Guideline",
+					"type": "checkbox",
+					"defaultValue": false
+				},
+				{
+					"name": "imageGuidelineText",
+					"label": "Image Guideline Text",
+					"type": "text",
+					"defaultValue": "Recomendado: usar imagens otimizadas em JPG ou WebP, preferencialmente até 300 KB e proporção próxima de 1600x900."
+				}
+			]
+		},
+		{
+			"label": "Colors",
+			"fields": [
+				{
+					"name": "titleColor",
+					"label": "Title Color",
+					"type": "text",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "descriptionColor",
+					"label": "Description Color",
+					"type": "text",
+					"defaultValue": "rgba(255,255,255,0.82)"
+				},
+				{
+					"name": "contentBackgroundColor",
+					"label": "Content Background Color",
+					"type": "text",
+					"defaultValue": "transparent"
+				},
+				{
+					"name": "primaryButtonBackgroundColor",
+					"label": "Primary Button Background",
+					"type": "text",
+					"defaultValue": "linear-gradient(135deg, #7c3aed, #06b6d4)"
+				},
+				{
+					"name": "primaryButtonTextColor",
+					"label": "Primary Button Text Color",
+					"type": "text",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "secondaryButtonBackgroundColor",
+					"label": "Secondary Button Background",
+					"type": "text",
+					"defaultValue": "rgba(255,255,255,0.08)"
+				},
+				{
+					"name": "secondaryButtonTextColor",
+					"label": "Secondary Button Text Color",
+					"type": "text",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "navigationColor",
+					"label": "Navigation Color",
+					"type": "text",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "navigationBackgroundColor",
+					"label": "Navigation Background",
+					"type": "text",
+					"defaultValue": "rgba(255,255,255,0.12)"
+				},
+				{
+					"name": "paginationActiveColor",
+					"label": "Pagination Active Color",
+					"type": "text",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "paginationInactiveColor",
+					"label": "Pagination Inactive Color",
+					"type": "text",
+					"defaultValue": "rgba(255,255,255,0.32)"
+				}
+			]
+		},
+		{
+			"label": "Analytics",
+			"fields": [
+				{
+					"name": "enableTracking",
+					"label": "Enable dataLayer Tracking",
+					"type": "checkbox",
+					"defaultValue": false
+				},
+				{
+					"name": "trackingEventName",
+					"label": "Tracking Event Name",
+					"type": "text",
+					"defaultValue": "advanced_slider_interaction"
+				},
+				{
+					"name": "sliderId",
+					"label": "Slider ID",
+					"type": "text",
+					"defaultValue": "advanced-liferay-slider"
+				}
+			]
+		}
+	]
+}
