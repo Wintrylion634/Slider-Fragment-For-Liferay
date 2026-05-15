@@ -57,7 +57,7 @@
 				{
 					"name": "borderRadius",
 					"label": "Border Radius",
-					"type": "text",
+					"type": "length",
 					"defaultValue": "0px"
 				}
 			]
@@ -197,13 +197,13 @@
 				{
 					"name": "arrowsOffset",
 					"label": "Arrows Offset",
-					"type": "text",
+					"type": "length",
 					"defaultValue": "18px"
 				},
 				{
 					"name": "navigationSize",
 					"label": "Navigation Size",
-					"type": "text",
+					"type": "length",
 					"defaultValue": "52px"
 				},
 				{
@@ -270,7 +270,7 @@
 					"name": "imageGuidelineText",
 					"label": "Image Guideline Text",
 					"type": "text",
-					"defaultValue": "Recomendado: usar imagens otimizadas em JPG ou WebP, preferencialmente até 300 KB e proporção próxima de 1600x900."
+					"defaultValue": "Recommended: Use optimized images in JPG or WebP format, preferably up to 300 KB and with an aspect ratio close to 1600x900."
 				}
 			]
 		},
@@ -280,67 +280,67 @@
 				{
 					"name": "titleColor",
 					"label": "Title Color",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "#ffffff"
 				},
 				{
 					"name": "descriptionColor",
 					"label": "Description Color",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "rgba(255,255,255,0.82)"
 				},
 				{
 					"name": "contentBackgroundColor",
 					"label": "Content Background Color",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "transparent"
 				},
 				{
 					"name": "primaryButtonBackgroundColor",
 					"label": "Primary Button Background",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "linear-gradient(135deg, #7c3aed, #06b6d4)"
 				},
 				{
 					"name": "primaryButtonTextColor",
 					"label": "Primary Button Text Color",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "#ffffff"
 				},
 				{
 					"name": "secondaryButtonBackgroundColor",
 					"label": "Secondary Button Background",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "rgba(255,255,255,0.08)"
 				},
 				{
 					"name": "secondaryButtonTextColor",
 					"label": "Secondary Button Text Color",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "#ffffff"
 				},
 				{
 					"name": "navigationColor",
 					"label": "Navigation Color",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "#ffffff"
 				},
 				{
 					"name": "navigationBackgroundColor",
 					"label": "Navigation Background",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "rgba(255,255,255,0.12)"
 				},
 				{
 					"name": "paginationActiveColor",
 					"label": "Pagination Active Color",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "#ffffff"
 				},
 				{
 					"name": "paginationInactiveColor",
 					"label": "Pagination Inactive Color",
-					"type": "text",
+					"type": "colorPicker",
 					"defaultValue": "rgba(255,255,255,0.32)"
 				}
 			]
