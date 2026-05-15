@@ -9,6 +9,7 @@ const slider = fragmentElement.querySelector('.lxp-slider');
 const track = fragmentElement.querySelector('.lxp-slider__track');
 const slides = Array.from(fragmentElement.querySelectorAll('.lxp-slide'));
 const bullets = Array.from(fragmentElement.querySelectorAll('.lxp-slider__bullet'));
+const fractionEl = fragmentElement.querySelector('.lxp-slider__fraction');
 const prev = fragmentElement.querySelector('.lxp-slider__nav--prev');
 const next = fragmentElement.querySelector('.lxp-slider__nav--next');
 const toggleButton = fragmentElement.querySelector('.lxp-slider__toggle');
@@ -16,6 +17,7 @@ const nextItemIndexKey = `${fragmentEntryLinkNamespace}-next-item-index`;
 
 let intervalId = null;
 let moving = false;
+let userPaused = false;
 
 let touchStartX = 0;
 let touchStartY = 0;
@@ -29,35 +31,71 @@ function getConfigBoolean(value, fallback = true) {
 	return fallback;
 }
 
-function getNextItemIndex() {
-	return window[nextItemIndexKey] || 0;
-}
+function clampIndex(index) {
+	if (!slides.length) {
+		return 0;
+	}
 
-function setNextItemIndex(index) {
-	window[nextItemIndexKey] = index;
+	return Math.min(Math.max(index, 0), slides.length - 1);
 }
 
 function getActiveSlide() {
 	return fragmentElement.querySelector('.lxp-slide.is-active');
 }
 
-function getActiveBullet() {
-	return fragmentElement.querySelector('.lxp-slider__bullet.is-active');
+function getActiveIndex() {
+	const activeSlide = getActiveSlide();
+
+	if (!activeSlide) {
+		return 0;
+	}
+
+	const index = slides.indexOf(activeSlide);
+
+	return index >= 0 ? index : 0;
 }
 
-function updateBullets() {
-	const nextBullet = bullets[getNextItemIndex()];
-	const activeBullet = getActiveBullet();
+function setNextItemIndex(index) {
+	window[nextItemIndexKey] = clampIndex(index);
+}
 
-	if (activeBullet) {
-		activeBullet.classList.remove('is-active');
-		activeBullet.setAttribute('aria-current', 'false');
+function getNextItemIndex() {
+	return clampIndex(window[nextItemIndexKey] || 0);
+}
+
+function syncPagination() {
+	const index = getActiveIndex();
+
+	setNextItemIndex(index);
+
+	if (bullets.length) {
+		bullets.forEach((bullet, bulletIndex) => {
+			const isActive = bulletIndex === index;
+
+			bullet.classList.toggle('is-active', isActive);
+			bullet.setAttribute('aria-current', isActive ? 'true' : 'false');
+		});
 	}
 
-	if (nextBullet) {
-		nextBullet.classList.add('is-active');
-		nextBullet.setAttribute('aria-current', 'true');
+	if (fractionEl) {
+		fractionEl.textContent = `${index + 1} / ${slides.length}`;
 	}
+}
+
+function trackEvent(action, extra = {}) {
+	if (!getConfigBoolean(configuration.enableTracking, false) || editMode) {
+		return;
+	}
+
+	window.dataLayer = window.dataLayer || [];
+	window.dataLayer.push({
+		event: configuration.trackingEventName || 'advanced_slider_interaction',
+		sliderId: configuration.sliderId || 'advanced-liferay-slider',
+		action,
+		slideIndex: getActiveIndex(),
+		variant: configuration.variant || 'hero',
+		...extra
+	});
 }
 
 function activateSlide(activeSlide, nextSlide) {
@@ -80,23 +118,32 @@ function move(direction, index = null) {
 	moving = true;
 
 	const activeSlide = getActiveSlide();
-	const activeIndex = slides.indexOf(activeSlide);
+	const activeIndex = getActiveIndex();
+	const previousIndex = activeIndex;
+
+	let targetIndex;
 
 	if (index !== null) {
-		setNextItemIndex(index);
+		targetIndex = clampIndex(index);
 	} else if (direction === MOVE_RIGHT) {
-		setNextItemIndex(activeIndex >= slides.length - 1 ? 0 : activeIndex + 1);
+		targetIndex = activeIndex >= slides.length - 1 ? 0 : activeIndex + 1;
 	} else {
-		setNextItemIndex(activeIndex <= 0 ? slides.length - 1 : activeIndex - 1);
+		targetIndex = activeIndex <= 0 ? slides.length - 1 : activeIndex - 1;
 	}
 
-	const nextSlide = slides[getNextItemIndex()];
-
-	updateBullets();
+	const nextSlide = slides[targetIndex];
 
 	window.setTimeout(() => {
 		activateSlide(activeSlide, nextSlide);
+		syncPagination();
 		moving = false;
+
+		if (targetIndex !== previousIndex) {
+			trackEvent('slide_view', {
+				previousSlideIndex: previousIndex,
+				direction: index !== null ? 'bullet' : direction
+			});
+		}
 	}, 120);
 }
 
@@ -104,6 +151,8 @@ function startCarousel() {
 	if (editMode || !getConfigBoolean(configuration.autoplay, true) || slides.length <= 1) {
 		return;
 	}
+
+	userPaused = false;
 
 	if (intervalId) {
 		clearInterval(intervalId);
@@ -113,7 +162,7 @@ function startCarousel() {
 		if (document.contains(slides[0])) {
 			move(MOVE_RIGHT);
 		} else {
-			stopCarousel();
+			stopCarousel(false);
 		}
 	}, INTERVAL);
 
@@ -128,10 +177,14 @@ function startCarousel() {
 	}
 }
 
-function stopCarousel() {
+function stopCarousel(manual = true) {
 	if (intervalId) {
 		clearInterval(intervalId);
 		intervalId = null;
+	}
+
+	if (manual) {
+		userPaused = true;
 	}
 
 	if (track) {
@@ -164,12 +217,12 @@ function handleTouchEnd(event) {
 	const absX = Math.abs(deltaX);
 	const absY = Math.abs(deltaY);
 
-	/* só reage a swipe horizontal real */
 	if (absX < 40 || absX <= absY) {
 		return;
 	}
 
 	stopCarousel();
+	trackEvent('swipe', { direction: deltaX < 0 ? 'next' : 'prev' });
 
 	if (deltaX < 0) {
 		move(MOVE_RIGHT);
@@ -184,18 +237,34 @@ function handleTouchEnd(event) {
 	}
 
 	slides.forEach((slide, index) => {
-		slide.setAttribute('aria-hidden', index === 0 ? 'false' : 'true');
+		const isFirst = index === 0;
+
+		slide.classList.toggle('is-active', isFirst);
+		slide.setAttribute('aria-hidden', isFirst ? 'false' : 'true');
 	});
+
+	syncPagination();
 
 	if (!editMode) {
 		startCarousel();
 	}
 
-	updateBullets();
+	fragmentElement.querySelectorAll('.lxp-slide__cta--primary').forEach(cta => {
+		cta.addEventListener('click', () => {
+			trackEvent('click_cta', { ctaType: 'primary' });
+		});
+	});
+
+	fragmentElement.querySelectorAll('.lxp-slide__cta--secondary').forEach(cta => {
+		cta.addEventListener('click', () => {
+			trackEvent('click_cta', { ctaType: 'secondary' });
+		});
+	});
 
 	if (prev) {
 		prev.addEventListener('click', () => {
 			stopCarousel();
+			trackEvent('nav_arrow', { direction: 'prev' });
 			move(MOVE_LEFT);
 		});
 	}
@@ -203,6 +272,7 @@ function handleTouchEnd(event) {
 	if (next) {
 		next.addEventListener('click', () => {
 			stopCarousel();
+			trackEvent('nav_arrow', { direction: 'next' });
 			move(MOVE_RIGHT);
 		});
 	}
@@ -211,25 +281,22 @@ function handleTouchEnd(event) {
 		toggleButton.addEventListener('click', () => {
 			if (intervalId) {
 				stopCarousel();
+				trackEvent('autoplay_toggle', { state: 'paused' });
 			} else {
 				startCarousel();
+				trackEvent('autoplay_toggle', { state: 'playing' });
 			}
 		});
 	}
 
 	bullets.forEach((bullet, index) => {
 		bullet.addEventListener('click', () => {
-			const activeBullet = getActiveBullet();
-			const activeIndex = bullets.indexOf(activeBullet);
+			const activeIndex = getActiveIndex();
 
 			if (index !== activeIndex) {
 				stopCarousel();
-
-				if (index < activeIndex) {
-					move(MOVE_LEFT, index);
-				} else {
-					move(MOVE_RIGHT, index);
-				}
+				trackEvent('nav_bullet', { targetSlideIndex: index });
+				move(null, index);
 			}
 		});
 	});
@@ -238,26 +305,31 @@ function handleTouchEnd(event) {
 		slider.addEventListener('keydown', event => {
 			if (event.key === 'ArrowLeft') {
 				stopCarousel();
+				trackEvent('nav_keyboard', { direction: 'prev' });
 				move(MOVE_LEFT);
 			} else if (event.key === 'ArrowRight') {
 				stopCarousel();
+				trackEvent('nav_keyboard', { direction: 'next' });
 				move(MOVE_RIGHT);
 			}
 		});
 
-		/* suporte a touch */
 		slider.addEventListener('touchstart', handleTouchStart, { passive: true });
 		slider.addEventListener('touchend', handleTouchEnd, { passive: true });
 
 		if (getConfigBoolean(configuration.pauseOnHover, true)) {
 			slider.addEventListener('mouseenter', () => {
-				if (!editMode && getConfigBoolean(configuration.autoplay, true)) {
-					stopCarousel();
+				if (!editMode && getConfigBoolean(configuration.autoplay, true) && intervalId) {
+					stopCarousel(false);
 				}
 			});
 
 			slider.addEventListener('mouseleave', () => {
-				if (!editMode && getConfigBoolean(configuration.autoplay, true)) {
+				if (
+					!editMode &&
+					!userPaused &&
+					getConfigBoolean(configuration.autoplay, true)
+				) {
 					startCarousel();
 				}
 			});

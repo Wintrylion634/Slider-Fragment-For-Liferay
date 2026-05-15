@@ -4,6 +4,23 @@
 			"label": "Slider Options",
 			"fields": [
 				{
+					"name": "variant",
+					"label": "Variant",
+					"type": "select",
+					"defaultValue": "hero",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Hero", "value": "hero" },
+							{ "label": "Cards", "value": "cards" },
+							{ "label": "Testimonials", "value": "testimonials" },
+							{ "label": "Minimal", "value": "minimal" },
+							{ "label": "Split", "value": "split" },
+							{ "label": "Banner", "value": "banner" },
+							{ "label": "Custom Slides", "value": "custom-slides" }
+						]
+					}
+				},
+				{
 					"name": "numberOfSlides",
 					"label": "Number of Slides",
 					"type": "select",
@@ -18,22 +35,6 @@
 							{ "label": "6", "value": "6" },
 							{ "label": "7", "value": "7" },
 							{ "label": "8", "value": "8" }
-						]
-					}
-				},
-				{
-					"name": "variant",
-					"label": "Variant",
-					"type": "select",
-					"defaultValue": "hero",
-					"typeOptions": {
-						"validValues": [
-							{ "label": "Hero", "value": "hero" },
-							{ "label": "Cards", "value": "cards" },
-							{ "label": "Testimonials", "value": "testimonials" },
-							{ "label": "Minimal", "value": "minimal" },
-							{ "label": "Split", "value": "split" },
-							{ "label": "Banner", "value": "banner" }
 						]
 					}
 				},
@@ -110,10 +111,19 @@
 			"label": "Content Visibility",
 			"fields": [
 				{
-					"name": "showEyebrow",
-					"label": "Show Eyebrow",
-					"type": "checkbox",
-					"defaultValue": true
+					"name": "eyebrowCount",
+					"label": "Eyebrow Count (0-4)",
+					"type": "select",
+					"defaultValue": "1",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "0 - Hidden", "value": "0" },
+							{ "label": "1", "value": "1" },
+							{ "label": "2", "value": "2" },
+							{ "label": "3", "value": "3" },
+							{ "label": "4", "value": "4" }
+						]
+					}
 				},
 				{
 					"name": "showTitle",
@@ -138,6 +148,160 @@
 					"label": "Show Secondary Button",
 					"type": "checkbox",
 					"defaultValue": true
+				}
+			]
+		},
+		{
+			"label": "Eyebrow Style",
+			"fields": [
+				{
+					"name": "eyebrowAlign",
+					"label": "Eyebrow Alignment",
+					"type": "select",
+					"defaultValue": "left",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Left", "value": "left" },
+							{ "label": "Center", "value": "center" },
+							{ "label": "Right", "value": "right" }
+						]
+					}
+				},
+				{
+					"name": "eyebrowFontSize",
+					"label": "Font Size",
+					"type": "length",
+					"defaultValue": "12px"
+				},
+				{
+					"name": "eyebrowPadding",
+					"label": "Padding",
+					"type": "text",
+					"defaultValue": "8px 14px"
+				},
+				{
+					"name": "eyebrowBackgroundColor",
+					"label": "Background",
+					"type": "text",
+					"defaultValue": "linear-gradient(135deg, #7c3aed, #06b6d4)"
+				},
+				{
+					"name": "eyebrowTextColor",
+					"label": "Text Color",
+					"type": "colorPicker",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "eyebrowBorderWidth",
+					"label": "Border Width",
+					"type": "length",
+					"defaultValue": "0px"
+				},
+				{
+					"name": "eyebrowBorderColor",
+					"label": "Border Color",
+					"type": "colorPicker",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "eyebrowBorderRadius",
+					"label": "Border Radius",
+					"type": "length",
+					"defaultValue": "999px"
+				}
+			]
+		},
+		{
+			"label": "Button Style",
+			"fields": [
+				{
+					"name": "primaryButtonMinHeight",
+					"label": "Primary Min Height",
+					"type": "length",
+					"defaultValue": "48px"
+				},
+				{
+					"name": "primaryButtonFontSize",
+					"label": "Primary Font Size",
+					"type": "length",
+					"defaultValue": "14px"
+				},
+				{
+					"name": "primaryButtonBorderWidth",
+					"label": "Primary Border Width",
+					"type": "length",
+					"defaultValue": "0px"
+				},
+				{
+					"name": "primaryButtonBorderColor",
+					"label": "Primary Border Color",
+					"type": "colorPicker",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "primaryButtonBorderRadius",
+					"label": "Primary Border Radius",
+					"type": "length",
+					"defaultValue": "999px"
+				},
+				{
+					"name": "secondaryButtonMinHeight",
+					"label": "Secondary Min Height",
+					"type": "length",
+					"defaultValue": "48px"
+				},
+				{
+					"name": "secondaryButtonFontSize",
+					"label": "Secondary Font Size",
+					"type": "length",
+					"defaultValue": "14px"
+				},
+				{
+					"name": "secondaryButtonBorderWidth",
+					"label": "Secondary Border Width",
+					"type": "length",
+					"defaultValue": "1px"
+				},
+				{
+					"name": "secondaryButtonBorderColor",
+					"label": "Secondary Border Color",
+					"type": "colorPicker",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "secondaryButtonBorderRadius",
+					"label": "Secondary Border Radius",
+					"type": "length",
+					"defaultValue": "999px"
+				}
+			]
+		},
+		{
+			"label": "Cards and Split Panel",
+			"fields": [
+				{
+					"name": "variantPanelBackgroundColor",
+					"label": "Panel Background (Cards & Split)",
+					"type": "text",
+					"defaultValue": "rgba(15, 23, 42, 0.32)"
+				},
+				{
+					"name": "variantPanelBorderColor",
+					"label": "Panel Border Color",
+					"type": "colorPicker",
+					"defaultValue": "#ffffff"
+				},
+				{
+					"name": "variantPanelBorderWidth",
+					"label": "Panel Border Width",
+					"type": "length",
+					"defaultValue": "1px"
+				},
+				{
+					"name": "variantPanelBorderRadius",
+					"label": "Panel Border Radius",
+					"type": "length",
+					"defaultValue": "24px"
 				}
 			]
 		},
@@ -169,8 +333,20 @@
 					"defaultValue": true
 				},
 				{
+					"name": "paginationPlacement",
+					"label": "Pagination Vertical Placement",
+					"type": "select",
+					"defaultValue": "bottom",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Bottom", "value": "bottom" },
+							{ "label": "Top", "value": "top" }
+						]
+					}
+				},
+				{
 					"name": "paginationPosition",
-					"label": "Pagination Position",
+					"label": "Pagination Horizontal Alignment",
 					"type": "select",
 					"defaultValue": "center",
 					"typeOptions": {
@@ -182,15 +358,40 @@
 					}
 				},
 				{
+					"name": "paginationStyle",
+					"label": "Pagination Style",
+					"type": "select",
+					"defaultValue": "bar",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Bar", "value": "bar" },
+							{ "label": "Dot", "value": "dot" },
+							{ "label": "Fraction", "value": "fraction" }
+						]
+					}
+				},
+				{
 					"name": "arrowsPosition",
-					"label": "Arrows Position",
+					"label": "Arrows Horizontal Position",
 					"type": "select",
 					"defaultValue": "inside",
 					"typeOptions": {
 						"validValues": [
 							{ "label": "Inside", "value": "inside" },
-							{ "label": "Edge", "value": "edge" },
-							{ "label": "Outside", "value": "outside" }
+							{ "label": "Edge", "value": "edge" }
+						]
+					}
+				},
+				{
+					"name": "arrowsVerticalPosition",
+					"label": "Arrows Vertical Position",
+					"type": "select",
+					"defaultValue": "center",
+					"typeOptions": {
+						"validValues": [
+							{ "label": "Top", "value": "top" },
+							{ "label": "Center", "value": "center" },
+							{ "label": "Bottom", "value": "bottom" }
 						]
 					}
 				},
@@ -271,6 +472,12 @@
 					"label": "Image Guideline Text",
 					"type": "text",
 					"defaultValue": "Recommended: Use optimized images in JPG or WebP format, preferably up to 300 KB and with an aspect ratio close to 1600x900."
+				},
+				{
+					"name": "defaultImageAlt",
+					"label": "Default Image Alt Text",
+					"type": "text",
+					"defaultValue": "Imagem do slide"
 				}
 			]
 		},
@@ -286,19 +493,19 @@
 				{
 					"name": "descriptionColor",
 					"label": "Description Color",
-					"type": "colorPicker",
+					"type": "text",
 					"defaultValue": "rgba(255,255,255,0.82)"
 				},
 				{
 					"name": "contentBackgroundColor",
 					"label": "Content Background Color",
-					"type": "colorPicker",
+					"type": "text",
 					"defaultValue": "transparent"
 				},
 				{
 					"name": "primaryButtonBackgroundColor",
 					"label": "Primary Button Background",
-					"type": "colorPicker",
+					"type": "text",
 					"defaultValue": "linear-gradient(135deg, #7c3aed, #06b6d4)"
 				},
 				{
@@ -310,7 +517,7 @@
 				{
 					"name": "secondaryButtonBackgroundColor",
 					"label": "Secondary Button Background",
-					"type": "colorPicker",
+					"type": "text",
 					"defaultValue": "rgba(255,255,255,0.08)"
 				},
 				{
@@ -328,7 +535,7 @@
 				{
 					"name": "navigationBackgroundColor",
 					"label": "Navigation Background",
-					"type": "colorPicker",
+					"type": "text",
 					"defaultValue": "rgba(255,255,255,0.12)"
 				},
 				{
@@ -340,7 +547,7 @@
 				{
 					"name": "paginationInactiveColor",
 					"label": "Pagination Inactive Color",
-					"type": "colorPicker",
+					"type": "text",
 					"defaultValue": "rgba(255,255,255,0.32)"
 				}
 			]
